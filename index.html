@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Silvermist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  
+ <!---------------------------------Header------------------------------------>
+
+<header class="nav" role="banner">
+  <div class="nav-inner">
+    <!-- Logo SVG integrado -->
+    <a href="#" class="logo" aria-label="Silvermist home">
+      <svg width="36" height="36" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-opacity="0.06" stroke-width="2"/>
+        <path d="M20 36c6-10 24-10 28 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M32 18c3 0 6 2 6 5s-3 5-6 5-6-2-6-5 3-5 6-5z" fill="currentColor" />
+      </svg>
+      <span class="logo-text">Silvermist</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="nav-links" role="navigation" aria-label="Main navigation">
+      <a href="#" class="nav-link">Home</a>
+      <a href="#servicios" class="nav-link">Services</a>
+      <a href="#about" class="nav-link">Team</a>
+      <a href="#precios" class="nav-link">Precios</a>
+      <a href="#contacto" class="nav-link">Contact</a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="nav-actions">
+      
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu (hidden by default) -->
+  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="false" aria-hidden="true">
+    <div class="mobile-inner" role="document">
+      <nav class="mobile-links" aria-label="Mobile navigation">
+        <a href="#" class="mobile-link">Home</a>
+        <a href="#servicios" class="mobile-link">Services</a>
+        <a href="#about" class="mobile-link">Team</a>
+        <a href="#precios" class="mobile-link">Precios</a>
+        <a href="#contacto" class="mobile-link">Contact</a>
+      </nav>
+      <button class="mobile-close" id="mobileClose" aria-label="Cerrar menú">✕</button>
+    </div>
+  </div>
+</header>
+
+
+  <main>
+    
+    
+<section class="hero circular-hero">
+  <div class="hero-left">
+    <p class="location">Guantánamo, Cuba</p>
+    <h1>Todo lo que necesitas para verte hermosa y radiante</h1>
+    <p class="lead">Tratamientos y estilismo con un toque moderno y elegante.</p>
+    <div class="cta">
+      <button class="btn-primary" id="bookBtn">Reserva Ya</button>
+      <button class="btn-ghost" id="workflowBtn">Tu mejor eleccion </button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img class="circular-img" src="assets/model.png" alt="Modelo peinado" loading="lazy" />
+  </div>
+ </section>
+
+
+<section id="about" class="about improved-about plain-images">
+  <div class="about-inner">
+    <header class="about-header">
+      <h2>Sobre Nosotros</h2>
+      <p class="about-lead">Somos un salon de belleza ubicado en guantánmo y nos encargamos de darte el toque de belleza y estilo que necesitas.</p>
+    </header>
+
+    <div class="about-cards">
+      <!-- Card 1 -->
+      <article class="about-card">
+        <div class="about-text">
+          <h3 class="card-title">Nuestro espacio</h3>
+          <p class="card-desc"> En el Sur de nuestra Hermosa ciudad Guantánamo, <strong>Silvermist</strong> es más que un salón de belleza: es un espacio dedicado al cuidado, la elegancia y el bienestar. Nos especializamos en <strong>manicura</strong>, <strong>pedicura</strong>, <strong>depilación con cera</strong> y la colocación de <strong>pestañas postizas</strong>, ofreciendo un servicio personalizado que resalta tu estilo único.
+          </p>
+          <div class="card-meta">
+            <span class="meta-strong">+50</span>
+            <span class="meta-label">Client@s</span>
+          </div>
+        </div>
+
+        <div class="about-image">
+          <img src="assets/salonpestañas.jpg" alt="Interior salón pestañas" loading="lazy">
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="about-card">
+        <div class="about-text">
+          <h3 class="card-title">Estética y confort</h3>
+          <p class="card-desc">Cada detalle en Silvermist está pensado para que te sientas cómoda, segura y radiante. Nuestro equipo combina técnica, creatividad y pasión para transformar cada visita en una experiencia relajante y memorable.</p>
+          <div class="card-meta">
+            <span class="meta-strong">+500</span>
+            <span class="meta-label">Trabajos Realizados</span>
+          </div>
+        </div>
+
+        <div class="about-image">
+          <img src="assets/salonUñas.jpg" alt="Interior salón uñas" loading="lazy">
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="announcements" class="announcements-row" aria-label="Anuncios y promociones">
+  <div class="ann-row-inner">
+    <article class="ann-card" role="article" aria-label="Promoción Polygel">
+      <img class="ann-img" src="assets/Promo/anuncio polygel.jfif" alt="Polygel 20% OFF" loading="lazy">
+      <div class="ann-text">
+        <div class="ann-kicker">Oferta limitada</div>
+        <h4 class="ann-title">Polygel <strong>20% OF</strong></h4>
+        <p class="ann-desc">Reserva esta semana y obtén descuento en todos los servicios Polygel.</p>
+      </div>
+    </article>
+
+    <article class="ann-card" role="article" aria-label="Promoción Uñas Acrílicas">
+      <img class="ann-img" src="assets/Promo/navidad.jfif" alt="Uñas Navideñas" loading="lazy">
+      <div class="ann-text">
+        <div class="ann-kicker">Nuevo</div>
+        <h4 class="ann-title">Uñas Acrílicas Navideñas</h4>
+        <p class="ann-desc">Diseños exclusivos desde <strong>1200 Cup</strong> </p>
+      </div>
+    </article>
+
+    <article class="ann-card" role="article" aria-label="Promoción Manicura Hombre">
+      <img class="ann-img" src="assets/Promo/manicura hombre.jpg" alt="Manicura de hombre" loading="lazy">
+      <div class="ann-text">
+        <div class="ann-kicker">Express</div>
+        <h4 class="ann-title">Manicura de hombre</h4>
+        <p class="ann-desc">Cuidado profesional y rápido.</p>
+      </div>
+    </article>
+
+    <article class="ann-card" role="article" aria-label="Promoción Cejas y Pestañas">
+      <img class="ann-img" src="assets/Promo/pestañaspromo.jfif" alt="Cejas y Pestañas" loading="lazy">
+      <div class="ann-text">
+        <div class="ann-kicker">Combo</div>
+        <h4 class="ann-title">Cejas y Pestañas</h4>
+        <p class="ann-desc">Paquetes combinados con descuento <strong>Especial</strong></p>
+      </div>
+    </article>
+
+     <article class="ann-card" role="article" aria-label="Clientas VIP">
+      <img class="ann-img" src="assets/Promo/35descuento.jfif" alt="Clientas VIP" loading="lazy">
+      <div class="ann-text">
+        <div class="ann-kicker">VIP</div>
+        <h4 class="ann-title">Clientas <strong>VIP</strong></h4>
+        <p class="ann-desc">Si tienes mas de un año con nosotros tienes descuentos del 35% en fechas de <strong>PROMO</strong></p>
+      </div>
+    </article>
+
+    <!-- Añade más tarjetas siguiendo el mismo patrón -->
+  </div>
+</section>
+
+
+
+<!---------------------------------Servicios------------------------------------>
+
+<section id="servicios" class="servicios">
+  <h2 data-aos="fade-down">Servicios</h2>
+
+  <div class="tarjetas-servicios">
+    <div class="tarjeta-servicio" data-aos="fade-up">
+      <!-- Icono Manicura -->
+      <div class="icono-servicio" aria-hidden="true">
+        <!-- SVG inline: frasco de esmalte -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="20" y="18" width="24" height="30" rx="3" />
+            <rect x="26" y="8" width="12" height="10" rx="2" />
+            <path d="M28 30h8" />
+          </g>
+        </svg>
+      </div>
+      <h3>Manicura</h3>
+      <p>Embellece y fortalece tus uñas con técnicas modernas, esmaltes “breathable” y cuidado profundo.</p>
+      <a href="https://wa.me/+5356169875?text=Hola%20Silvermist,%20quiero%20reservar%20una%20manicura" target="_blank" rel="noopener" class="boton-reservar">Reservar</a>
+    </div>
+
+    <div class="tarjeta-servicio" data-aos="fade-up">
+      <!-- Icono Pedicura -->
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 36c2-8 10-12 18-10 6 1.5 10 6 12 12" />
+            <path d="M22 44c2-2 6-3 10-2 4 1 8 4 10 6" />
+          </g>
+        </svg>
+      </div>
+      <h3>Pedicura</h3>
+      <p>Relaja tus pies con exfoliación, hidratación y esmaltado profesional para una pisada impecable.</p>
+      <a href="https://wa.me/+5356169875?text=Hola%20Silvermist,%20quiero%20reservar%20una%20pedicura" target="_blank" rel="noopener" class="boton-reservar">Reservar</a>
+    </div>
+
+    <div class="tarjeta-servicio" data-aos="fade-up">
+      <!-- Icono Depilación -->
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 14c6 0 10 4 10 10s-4 10-10 10-10-4-10-10 4-10 10-10z" />
+            <path d="M20 40c6-6 18-6 24 0" />
+          </g>
+        </svg>
+      </div>
+      <h3>Depilación con cera</h3>
+      <p>Elimina el vello de forma suave y duradera con ceras de alta calidad y técnica experta.</p>
+      <a href="https://wa.me/+5356169875?text=Hola%20Silvermist,%20quiero%20reservar%20una%20depilación%20con%20cera" target="_blank" rel="noopener" class="boton-reservar">Reservar</a>
+    </div>
+
+    <div class="tarjeta-servicio" data-aos="fade-up">
+      <!-- Icono Pestañas -->
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 34c8-12 24-14 36-6" />
+            <path d="M16 40c6-6 18-6 28 0" />
+            <path d="M30 30c0 2 2 4 4 4" />
+          </g>
+        </svg>
+      </div>
+      <h3>Pestañas postizas</h3>
+      <p>Realza tu mirada con extensiones ligeras, naturales o glam, aplicadas con precisión y estilo.</p>
+      <a href="https://wa.me/+5356169875?text=Hola%20Silvermist,%20quiero%20reservar%20pestañas%20postizas" target="_blank" rel="noopener" class="boton-reservar">Reservar</a>
+    </div>
+  </div>
+</section>
+ <!---------------------------------Price------------------------------------>
+<section id="precios" class="precios-similares servicios precios-completa">
+  <h2 data-aos="fade-down">Precios</h2>
+
+  <div class="precios-controls">
+    <label class="search-wrap" aria-hidden="false">
+      <input id="buscar-precio" type="search" placeholder="Buscar servicio..." aria-label="Buscar servicio">
+    </label>
+
+    <div class="filtro" role="toolbar" aria-label="Filtrar por categoría">
+      <button class="filtro-btn active" data-filter="all" aria-pressed="true">Todos</button>
+      <button class="filtro-btn" data-filter="manos" aria-pressed="false">Manos</button>
+      <button class="filtro-btn" data-filter="pies" aria-pressed="false">Pies</button>
+      <button class="filtro-btn" data-filter="otros" aria-pressed="false">Otros</button>
+    </div>
+  </div>
+
+  <div class="tarjetas-servicios precios-grid" id="precios-grid">
+    <!-- ACRÍLICAS MANOS -->
+    <div class="tarjeta-servicio" data-category="manos" data-name="Acrílicas Manos - Cortas">
+      <div class="icono-servicio" aria-hidden="true">
+        <!-- SVG esmalte -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="20" y="18" width="24" height="30" rx="3" />
+            <rect x="26" y="8" width="12" height="10" rx="2" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Acrílicas Manos — Cortas</h3>
+        <div class="precio-item"><span class="cantidad">1000</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Acrílicas Manos - Medianas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 36c2-8 10-12 18-10 6 1.5 10 6 12 12" />
+            <path d="M22 44c2-2 6-3 10-2 4 1 8 4 10 6" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Acrílicas Manos — Medianas</h3>
+        <div class="precio-item"><span class="cantidad">1300</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Acrílicas Manos - Largas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 14c6 0 10 4 10 10s-4 10-10 10-10-4-10-10 4-10 10-10z" />
+            <path d="M20 40c6-6 18-6 24 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Acrílicas Manos — Largas</h3>
+        <div class="precio-item"><span class="cantidad">2400</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Acrílicas Manos - Extra largas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="16" width="28" height="34" rx="4" />
+            <path d="M26 8h12" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Acrílicas Manos — Extra largas</h3>
+        <div class="precio-item"><span class="cantidad">3000</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Acrílicas Manos - XXL">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="28" r="10" />
+            <path d="M22 44c6-6 18-6 24 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Acrílicas Manos — XXL</h3>
+        <div class="precio-item"><span class="cantidad">3000</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <!-- RELLENO -->
+    <div class="tarjeta-servicio" data-category="manos" data-name="Relleno - Cortas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 36c6-8 18-8 26 0" />
+            <path d="M22 44c6-6 18-6 24 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Relleno — Cortas</h3>
+        <div class="precio-item"><span class="cantidad">800</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Relleno - Medianas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 36c8-10 22-10 30 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Relleno — Medianas</h3>
+        <div class="precio-item"><span class="cantidad">1000</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Relleno - Largas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 36c10-14 32-14 42 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Relleno — Largas</h3>
+        <div class="precio-item"><span class="cantidad">2000</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Relleno - XXL">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 36c12-18 40-18 52 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Relleno — XXL</h3>
+        <div class="precio-item"><span class="cantidad">2500</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <!-- GEL 400 -->
+    <div class="tarjeta-servicio" data-category="manos" data-name="Gel 400 - Manos">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="22" y="20" width="20" height="22" rx="3" />
+            <path d="M28 12h8" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Gel 400 — Manos</h3>
+        <div class="precio-item"><span class="cantidad">100</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Gel 400 - Gel">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="10" />
+            <path d="M22 44c6-6 18-6 24 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Gel 400 — Gel</h3>
+        <div class="precio-item"><span class="cantidad">400</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <!-- RELLENO EN NATURALES -->
+    <div class="tarjeta-servicio" data-category="manos" data-name="Relleno en naturales - Cortas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 36c8-10 22-10 30 0" />
+            <path d="M26 44c6-6 14-6 20 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Relleno en naturales — Cortas</h3>
+        <div class="precio-item"><span class="cantidad">800</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Relleno en naturales - Medianas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 36c10-12 28-12 38 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Relleno en naturales — Medianas</h3>
+        <div class="precio-item"><span class="cantidad">1000</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="manos" data-name="Relleno en naturales - Largas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 36c12-16 36-16 48 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Relleno en naturales — Largas</h3>
+        <div class="precio-item"><span class="cantidad">1300</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <!-- PIES -->
+    <div class="tarjeta-servicio" data-category="pies" data-name="Pies - Puestas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 36c8-12 28-12 36 0" />
+            <path d="M22 44c6-6 18-6 24 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Pies — Puestas</h3>
+        <div class="precio-item"><span class="cantidad">1000</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="pies" data-name="Pies - Relleno">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 36c8-10 22-10 30 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Pies — Relleno</h3>
+        <div class="precio-item"><span class="cantidad">800</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="pies" data-name="Pies - Gel">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="22" y="20" width="20" height="22" rx="3" />
+            <path d="M28 12h8" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Pies — Gel</h3>
+        <div class="precio-item"><span class="cantidad">400</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <!-- OTROS -->
+    <div class="tarjeta-servicio" data-category="otros" data-name="Otros - Encapsulado">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="20" y="18" width="24" height="28" rx="4" />
+            <path d="M24 12h16" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Encapsulado</h3>
+        <div class="precio-item"><span class="cantidad">100</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="otros" data-name="Otros - Joyas">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 12l6 10 10 4-8 8 2 12-10-6-10 6 2-12-8-8 10-4z" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Joyas</h3>
+        <div class="precio-item"><span class="cantidad">25</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="otros" data-name="Otros - Relieves">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 36c8-12 32-12 40 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Relieves</h3>
+        <div class="precio-item"><span class="cantidad">100</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="otros" data-name="Otros - Piedras grandes">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="28" r="6" />
+            <path d="M22 44c6-6 18-6 24 0" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Piedras grandes</h3>
+        <div class="precio-item"><span class="cantidad">150</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+    <div class="tarjeta-servicio" data-category="otros" data-name="Otros - Efectos">
+      <div class="icono-servicio" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img">
+          <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 32h40" />
+            <path d="M32 12v40" />
+          </g>
+        </svg>
+      </div>
+      <div class="servicio-info">
+        <h3>Efectos</h3>
+        <div class="precio-item"><span class="cantidad">100</span> <span class="moneda">CUP</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+ <!---------------------------------Consejos------------------------------------>
+<section id="consejos" class="consejos pro-consejos" aria-labelledby="consejos-title">
+  <div class="contenedor">
+    <header class="consejos-header">
+      <h2 id="consejos-title" data-aos="fade-down">Consejos de Belleza</h2>
+      <p class="consejos-sub">Pequeños hábitos y productos profesionales que marcan la diferencia.</p>
+
+      <div class="consejos-controls" role="toolbar" aria-label="Controles de consejos">
+        <input id="buscar-consejo" type="search" placeholder="Buscar consejo..." aria-label="Buscar consejo">
+        <div class="filtros" role="group" aria-label="Filtrar consejos">
+          <button class="filtro-btn active" data-filter="all" aria-pressed="true">Todos</button>
+          <button class="filtro-btn" data-filter="uñas" aria-pressed="false">Uñas</button>
+          <button class="filtro-btn" data-filter="pestañas" aria-pressed="false">Pestañas</button>
+          <button class="filtro-btn" data-filter="piel" aria-pressed="false">Piel</button>
+          <button class="filtro-btn" data-filter="herramientas" aria-pressed="false">Herramientas</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="tarjetas-consejos" id="tarjetas-consejos" role="list" aria-label="Lista de consejos">
+      <!-- Consejo 1 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="uñas" data-name="Esmaltes breathable">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG profesional uñas -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 14c0-3 2-6 6-6s6 3 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="4" y="14" width="16" height="6" rx="2" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Esmaltes breathable</strong> para uñas más saludables y menos fragilidad.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 2 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="piel" data-name="Sérum biotina queratina">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG serum -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <rect x="7" y="9" width="10" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="12" cy="15" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Sérum con biotina y queratina</strong> para fortalecer uñas y cutículas.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 3 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="pestañas" data-name="Mascarilla péptidos">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG pestañas -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12s4-6 10-6 10 6 10 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 14c2-2 6-2 12 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Mascarilla nocturna con péptidos</strong> para pestañas más fuertes y densas.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 4 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="piel" data-name="Bálsamo bifásico">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG desmaquillante -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 7h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M6 11c3 3 9 3 12 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <rect x="5" y="12" width="14" height="6" rx="2" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Bálsamo bifásico sin alcohol</strong> para desmaquillar sin resecar la piel.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 5 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="herramientas" data-name="Micropeines seda">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG peine -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M4 10v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M7 10v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M10 10v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Micropeines de seda</strong> para estimular el crecimiento sin dañar el vello.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 6 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="piel" data-name="Protector solar diario">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG sol -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M12 2v2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M12 20v2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M4.9 4.9l1.4 1.4" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M17.7 17.7l1.4 1.4" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Protector solar diario</strong> para prevenir envejecimiento y manchas.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 7 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="uñas" data-name="Hidratación cutículas">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG gota -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2s6 6 6 10a6 6 0 1 1-12 0c0-4 6-10 6-10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Hidratación diaria de cutículas</strong> con aceite nutritivo para evitar roturas.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 8 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="pestañas" data-name="Peine pestañas diario">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG cepillo -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M6 8v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M10 8v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Peinar pestañas diariamente</strong> con peine suave para mantener forma y salud.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 9 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="herramientas" data-name="Limpieza herramientas">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG limpieza -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3l1.5 3L17 8l-3 1.5L12 13l-1.5-3L7 8l3-1.5L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 20h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Limpieza semanal de herramientas</strong> para evitar infecciones y prolongar vida útil.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 10 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="piel" data-name="Exfoliación suave">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG exfoliar -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M4 12h2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M18 12h2" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Exfoliación suave 1–2 veces por semana</strong> para renovar la piel sin irritarla.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 11 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="uñas" data-name="Lima cristal">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG lima -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="4" width="12" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M8 8h8" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Usar lima de cristal</strong> para un limado más suave y menos microfracturas.</p>
+        </div>
+      </article>
+
+      <!-- Consejo 12 -->
+      <article class="tarjeta-consejo" role="listitem" data-category="herramientas" data-name="Almacenamiento seco">
+        <div class="icono-consejo" aria-hidden="true">
+          <!-- SVG caja -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 7l9-4 9 4v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 3v18" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="texto-consejo">
+          <p><strong>Almacenar herramientas en lugar seco</strong> para evitar óxido y contaminación.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+ <!---------------------------------Galeria------------------------------------>
+<section id="galeria" class="galeria">
+  <div class="contenedor">
+    <h2 data-aos="fade-down">Galería</h2>
+
+    <div class="cinta-galeria" data-aos="fade-up" aria-label="Galería de imágenes">
+      <div class="cinta-imagenes" id="cintaImagenes" aria-hidden="false">
+        <!-- Repite imágenes para bucle fluido; usa imágenes optimizadas y cuadradas -->
+        <img src="assets/acrilicas/acrilicas (1).jpg" alt="Uñas acrílicas 1" loading="lazy" data-full="assets/acrilicas/acrilicas (1).jpg">
+        <img src="assets/acrilicas/acrilicas (2).jpg" alt="Ruber Gel" loading="lazy" data-full="assets/acrilicas/acrilicas (2).jpg">
+        <img src="assets/acrilicas/acrilicas (3).jpg" alt="Uñas acrílicas 3" loading="lazy" data-full="assets/acrilicas/acrilicas (3).jpg">
+        <img src="assets/acrilicas/acrilicas (4).jpg" alt="Diseño adicional 4" loading="lazy" data-full="assets/acrilicas/acrilicas (4).jpg">
+        <img src="assets/acrilicas/acrilicas (5).jpg" alt="Diseño adicional 5" loading="lazy" data-full="assets/acrilicas/acrilicas (5).jpg">
+
+        <!-- Duplicado para bucle continuo -->
+        <img src="assets/acrilicas/acrilicas (7).jpg" alt="" loading="lazy" aria-hidden="true" data-full="assets/acrilicas/acrilicas (6).jpg">
+        <img src="assets/acrilicas/acrilicas (8).jpg" alt="" loading="lazy" aria-hidden="true" data-full="assets/acrilicas/acrilicas (7).jpg">
+        <img src="assets/acrilicas/acrilicas (9).jpg" alt="" loading="lazy" aria-hidden="true" data-full="assets/acrilicas/acrilicas (8).jpg">
+        <img src="assets/acrilicas/acrilicas (10).jpg" alt="" loading="lazy" aria-hidden="true" data-full="assets/acrilicas/acrilicas (9).jpg">
+        <img src="assets/acrilicas/acrilicas (11).jpg" alt="" loading="lazy" aria-hidden="true" data-full="assets/acrilicas/acrilicas (10).jpg">
+      </div>
+
+      <button class="cinta-pause" id="cintaPause" aria-pressed="false" aria-label="Pausar galería">Pause</button>
+      <div class="borde-izquierdo" aria-hidden="true"></div>
+      <div class="borde-derecho" aria-hidden="true"></div>
+    </div>
+
+    <a href="galeria.html" class="boton-ver-todo">Ver todas las fotos por categoría</a>
+  </div>
+
+  <!-- Lightbox modal -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-inner" role="document">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar imagen">✕</button>
+      <button class="lightbox-prev" id="lightboxPrev" aria-label="Imagen anterior">‹</button>
+      <figure class="lightbox-figure">
+        <img id="lightboxImg" src="" alt="">
+        <figcaption id="lightboxCaption"></figcaption>
+      </figure>
+      <button class="lightbox-next" id="lightboxNext" aria-label="Siguiente imagen">›</button>
+    </div>
+  </div>
+</section>
+ <!---------------------------------Contact------------------------------------>
+
+<section id="contacto" class="contacto">
+  <div class="contacto-inner">
+    <header class="contacto-header">
+      <h2>Contacto</h2>
+      <p class="contacto-sub">Reserva tu cita o escríbenos por redes sociales. Respuesta rápida y personalizada.</p>
+    </header>
+
+    <div class="contact-grid">
+      <!-- Información de contacto -->
+      <div class="contact-card contact-info" aria-labelledby="contacto-title">
+        <h3 id="contacto-title">Silvermist</h3>
+        <p class="contact-line"><strong>Dirección</strong><br>Dirección: Calle 7 Oeste entre Calle 3 y 4 Sur, Provincia de Guantánamo, Cuba</p>
+        <p class="contact-line"><strong>Horario</strong><br>Lun - Dom 09:00 - 06:00 pm</p>
+        <p class="contact-line"><strong>Teléfono</strong><br><a href="tel:+5370000000" class="contact-link">+5356169875</a></p>
+        <p class="contact-line"><strong>Email</strong><br><a href="silvermistbeautysalon@gmail.com" class="contact-link">silvermistbeautysalon@gmail.com</a></p>
+      </div>
+
+      <!-- Redes sociales -->
+      <div class="contact-card contact-social" aria-label="Redes sociales">
+        <h3>Redes sociales</h3>
+
+        <ul class="social-list" role="list">
+          <li role="listitem">
+            <a class="social-link facebook" href="https://www.facebook.com/share/15ZYQGUXJb/?mibextid=LQQJ4d" target="_blank" rel="noopener" aria-label="Facebook Silvermist">
+              <!-- Facebook SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07c0 4.99 3.66 9.13 8.44 9.93v-7.03H8.08v-2.9h2.36V9.41c0-2.33 1.39-3.62 3.52-3.62.  1.02 0 2.09.18 2.09.18v2.3h-1.18c-1.16 0-1.52.72-1.52 1.46v1.75h2.59l-.41 2.9h-2.18v7.03C18.34 21.2 22 17.06 22 12.07z" fill="currentColor"/>
+              </svg>
+              <span>Facebook</span>
+            </a>
+          </li>
+
+          <li role="listitem">
+            <a class="social-link instagram" href="https://www.instagram.com/silvermistbs" target="_blank" rel="noopener" aria-label="Instagram Silvermist">
+              <!-- Instagram SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6" fill="none"/>
+                <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" stroke="currentColor" stroke-width="1.6" fill="none"/>
+                <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </li>
+
+          <li role="listitem">
+            <a class="social-link whatsapp" href="https://wa.me/+5356169875?text=Hola%20Silvermist%2C%20quiero%20informaci%C3%B3n" target="_blank" rel="noopener" aria-label="WhatsApp Silvermist">
+              <!-- WhatsApp SVG -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20.52 3.48A11.94 11.94 0 0 0 12 1C6.48 1 2 5.48 2 11c0 1.94.5 3.76 1.38 5.36L2 23l6.9-1.36A10.94 10.94 0 0 0 12 22c5.52 0 10-4.48 10-10 0-1.9-.5-3.68-1.48-5.12z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+                <path d="M17.5 14.5c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.18.2-.36.22-.66.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2 0-.37-.05-.52-.05-.15-.67-1.6-.92-2.2-.24-.57-.48-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.1 4.49 3 .9 3.3.76 3.9.71.6-.05 1.95-.8 2.23-1.57.28-.77.28-1.43.2-1.57-.08-.14-.27-.22-.57-.37z" fill="currentColor"/>
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+          </li>
+        </ul>
+
+        <p class="social-note">Haz clic para abrir la red social o enviar un mensaje directo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+  <!---------------------------------Footer------------------------------------>
+<footer id="site-footer" class="footer-minimal" role="contentinfo">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-brand" aria-label="Silvermist home">
+      <svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-opacity="0.06" stroke-width="2" fill="none"/>
+        <path d="M20 36c6-10 24-10 28 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-name">Silvermist</span>
+    </a>
+
+    <div class="footer-actions">
+      <nav class="footer-social" aria-label="Redes sociales">
+        <a href="https://www.instagram.com/silvermistbs" target="_blank" rel="noopener" aria-label="Instagram Silvermist">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.4" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4" fill="none"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/15ZYQGUXJb/?mibextid=LQQJ4d" target="_blank" rel="noopener" aria-label="Facebook Silvermist">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07c0 4.99 3.66 9.13 8.44 9.93v-7.03H8.08v-2.9h2.36V9.41c0-2.33 1.39-3.62 3.52-3.62 1.02 0 2.09.18 2.09.18v2.3h-1.18c-1.16 0-1.52.72-1.52 1.46v1.75h2.59l-.41 2.9h-2.18v7.03C18.34 21.2 22 17.06 22 12.07z" fill="currentColor"/></svg>
+        </a>
+        <a href="https://wa.me/+5356169875?text=Hola%20Silvermist,%20quiero%20reservar%20una%20cita" target="_blank" rel="noopener" aria-label="WhatsApp Silvermist">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.52 3.48A11.94 11.94 0 0 0 12 1C6.48 1 2 5.48 2 11c0 1.94.5 3.76 1.38 5.36L2 23l6.9-1.36A10.94 10.94 0 0 0 12 22c5.52 0 10-4.48 10-10 0-1.9-.5-3.68-1.48-5.12z" stroke="currentColor" stroke-width="1.1" fill="none"/><path d="M17.5 14.5c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.18.2-.36.22-.66.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2 0-.37-.05-.52-.05-.15-.67-1.6-.92-2.2-.24-.57-.48-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.1 4.49 3 .9 3.3.76 3.9.71.6-.05 1.95-.8 2.23-1.57.28-.77.28-1.43.2-1.57-.08-.14-.27-.22-.57-.37z" fill="currentColor"/></svg>
+        </a>
+      </nav>
+
+      <p class="footer-copy"> <span id="footerYear"></span> Silvermist.</p>
+      <p class="contact-line"><strong>Developer Contact</strong><br><a href="https://mrjaimes.github.io/WebTryDesing/" class="contact-link">WebTry Agency</a></p>
+    </div>
+  </div>
+</footer>
+
+
+</main>
+<script src="js/announcements.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

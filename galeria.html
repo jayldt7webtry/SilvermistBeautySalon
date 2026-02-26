@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Galería — Silvermist</title>
+  <meta name="description" content="Galería de Silvermist. Categorías: Polygel, Uñas acrílicas, Manicura de hombre, Cejas, Pestañas." />
+
+  <!-- Estilos específicos de la galería -->
+  <style>
+    :root{
+      --bg:#fffafc;
+      --card:#ffffff;
+      --accent:#c98fb6;
+      --muted:#6b6b6b;
+      --text:#222;
+      --glass: rgba(255,255,255,0.9);
+    }
+
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    body{background:linear-gradient(180deg,var(--bg),#fbf7fb);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+    /* Header simple */
+    .site-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:var(--glass);backdrop-filter:blur(6px);border-bottom:1px solid rgba(16,16,24,0.04);position:sticky;top:0;z-index:40}
+    .site-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700}
+    .site-logo svg{width:36px;height:36px;color:var(--accent)}
+    .site-actions{display:flex;gap:10px;align-items:center}
+
+    .container{max-width:1200px;margin:28px auto;padding:0 20px}
+
+    /* Título */
+    .page-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--accent);margin:0 0 8px}
+    .page-sub{color:var(--muted);margin:0 0 18px}
+
+    /* Controls: filtros y búsqueda */
+    .gallery-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .filter-btn{
+      padding:8px 12px;border-radius:999px;border:1px solid rgba(16,16,24,0.06);background:transparent;color:var(--text);cursor:pointer;font-weight:600;
+    }
+    .filter-btn.active{background:linear-gradient(90deg,#ffb6e0,#d99fc6);color:#2a0b16;border:none;box-shadow:0 8px 24px rgba(217,159,190,0.06)}
+    .search-input{padding:9px 12px;border-radius:999px;border:1px solid rgba(16,16,24,0.06);width:260px;background:#fff;color:var(--text)}
+
+    /* Grid de miniaturas */
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:12px;
+    }
+    .thumb{
+      background:var(--card);border-radius:12px;padding:8px;border:1px solid rgba(16,16,24,0.04);
+      display:flex;flex-direction:column;gap:8px;align-items:stretch;box-shadow:0 8px 24px rgba(16,16,24,0.04);
+    }
+    .thumb button{background:transparent;border:0;padding:0;cursor:pointer;text-align:left}
+    .thumb img{width:100%;height:140px;object-fit:cover;border-radius:8px;display:block}
+    .thumb .meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .thumb .meta .label{font-size:13px;color:var(--muted);font-weight:600}
+    .thumb .meta .cat{font-size:12px;color:#8b6b7f;padding:6px 8px;border-radius:999px;background:linear-gradient(135deg,rgba(201,143,182,0.06),rgba(217,182,205,0.02))}
+
+    /* Botón ver todo */
+    .ver-todo{display:inline-block;margin-top:14px;padding:10px 16px;border-radius:999px;background:linear-gradient(90deg,#ffb6e0,#d99fc6);color:#2a0b16;text-decoration:none;font-weight:700}
+
+    /* Lightbox */
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(10,8,10,0.6);backdrop-filter:blur(6px);z-index:120;align-items:center;justify-content:center;padding:24px}
+    .lightbox[aria-hidden="false"]{display:flex}
+    .lightbox-inner{position:relative;max-width:1100px;width:100%;display:flex;align-items:center;justify-content:center}
+    .lightbox-figure{margin:0;max-width:1000px;width:100%;text-align:center}
+    .lightbox-figure img{width:100%;height:auto;border-radius:12px;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,0.5)}
+    .lightbox-figure figcaption{margin-top:10px;color:#f3eaf0;font-size:14px}
+
+    .lb-close,.lb-prev,.lb-next{
+      position:absolute;background:rgba(255,255,255,0.95);border:0;padding:8px 10px;border-radius:8px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.15);
+    }
+    .lb-close{top:-12px;right:-12px}
+    .lb-prev{left:-60px;top:50%;transform:translateY(-50%)}
+    .lb-next{right:-60px;top:50%;transform:translateY(-50%)}
+
+    /* Responsive tweaks */
+    @media (max-width:900px){
+      .thumb img{height:120px}
+      .lb-prev{left:8px}
+      .lb-next{right:8px}
+      .search-input{width:100%}
+    }
+    @media (max-width:480px){
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+      .thumb img{height:100px}
+      .lb-prev,.lb-next{display:none}
+    }
+
+    /* Footer minimalista */
+.footer-minimal{background:transparent;padding:20px 16px;color:var(--text,#222)}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.footer-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.brand-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700}
+.footer-actions{display:flex;align-items:center;gap:16px}
+.footer-social{display:flex;gap:10px}
+.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:var(--text);text-decoration:none;border:1px solid rgba(16,16,24,0.04);background:rgba(255,255,255,0.9)}
+.footer-social a svg{width:18px;height:18px;color:var(--accent,#c98fb6)}
+.footer-copy{font-size:13px;color:#6b6b6b;margin:0}
+
+/* Responsive */
+@media (max-width:640px){
+  .footer-inner{flex-direction:column;align-items:center;gap:10px}
+  .footer-social a{width:40px;height:40px}
+}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <a href="index.html" class="site-logo" aria-label="Silvermist home">
+      <!-- Simple SVG logo -->
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-opacity="0.06" stroke-width="2"/>
+        <path d="M20 36c6-10 24-10 28 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M32 18c3 0 6 2 6 5s-3 5-6 5-6-2-6-5 3-5 6-5z" fill="currentColor" />
+      </svg>
+      <span class="logo-text">Silvermist</span>
+    </a>
+
+    <div class="site-actions">
+      <a href="index.html" class="filter-btn">Inicio</a>
+      <a href="#contacto" class="filter-btn">Contacto</a>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <h1 class="page-title">Galería</h1>
+    <p class="page-sub">Explora trabajos por categoría. Haz clic en cualquier imagen para verla en grande.</p>
+
+    <!-- Controles -->
+    <div class="gallery-controls" role="toolbar" aria-label="Controles de galería">
+      <div class="filters" role="tablist" aria-label="Filtrar por categoría">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Todos</button>
+        <button class="filter-btn" data-filter="polygel" role="tab" aria-selected="false">Polygel</button>
+        <button class="filter-btn" data-filter="acrilicas" role="tab" aria-selected="false">Uñas acrílicas</button>
+        <button class="filter-btn" data-filter="manicura-hombre" role="tab" aria-selected="false">Manicura de hombre</button>
+        <button class="filter-btn" data-filter="cejas" role="tab" aria-selected="false">Cejas</button>
+        <button class="filter-btn" data-filter="pestanas" role="tab" aria-selected="false">Pestañas</button>
+        <button class="filter-btn" data-filter="pies" role="tab" aria-selected="false">Pies</button>
+      </div>
+
+      <input id="buscar-galeria" class="search-input" type="search" placeholder="Buscar por nombre o etiqueta..." aria-label="Buscar en galería">
+    </div>
+
+    <!-- Grid de miniaturas -->
+    <section class="gallery-grid" id="galleryGrid" aria-live="polite" aria-label="Imágenes de la galería">
+      <!-- Ejemplos de miniaturas. Reemplaza src y data-full por tus rutas reales -->
+      
+
+     <!-- Polygel -->
+      <div class="thumb" data-category="polygel" data-name="Polygel rojo">
+        <button aria-label="Abrir Polygel Rosado">
+          <img src="assets/polygel/Polygel.jpg" data-full="assets/polygel/Polygel.jpg" alt="Polygel rojo" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Polygel Rojo</div><div class="cat">Polygel</div></div>
+      </div>
+
+      <div class="thumb" data-category="polygel" data-name="Polygel French">
+        <button aria-label="Abrir Polygel French">
+          <img src="assets/polygel/polygel (2).jpg" data-full="assets/polygel/polygel (2).jpg" alt="Polygel rojo" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Polygel Rojo</div><div class="cat">Polygel</div></div>
+      </div>
+
+     <div class="thumb" data-category="polygel" data-name="Polygel French">
+        <button aria-label="Abrir Polygel French">
+          <img src="assets/polygel/polygel (3).jpg" data-full="assets/polygel/polygel (3).jpg" alt="Polygel Blanco" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Polygel Blanco</div><div class="cat">Polygel</div></div>
+      </div>
+
+      <!-- Uñas acrílicas -->
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (1).jpg" data-full="assets/acrilicas/acrilicas (1).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (40).jpg" data-full="assets/acrilicas/acrilicas (2).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (3).jpg" data-full="assets/acrilicas/acrilicas (3).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (4).jpg" data-full="assets/acrilicas/acrilicas (4).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (5).jpg" data-full="assets/acrilicas/acrilicas (5).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (6).jpg" data-full="assets/acrilicas/acrilicas (6).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (7).jpg" data-full="assets/acrilicas/acrilicas (7).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (8).jpg" data-full="assets/acrilicas/acrilicas (8).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (9).jpg" data-full="assets/acrilicas/acrilicas (9).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (10).jpg" data-full="assets/acrilicas/acrilicas (10).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (11).jpg" data-full="assets/acrilicas/acrilicas (11).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (12).jpg" data-full="assets/acrilicas/acrilicas (12).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (13).jpg" data-full="assets/acrilicas/acrilicas (13).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (14).jpg" data-full="assets/acrilicas/acrilicas (14).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (15).jpg" data-full="assets/acrilicas/acrilicas (15).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (16).jpg" data-full="assets/acrilicas/acrilicas (16).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (17).jpg" data-full="assets/acrilicas/acrilicas (17).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (18).jpg" data-full="assets/acrilicas/acrilicas (18).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (19).jpg" data-full="assets/acrilicas/acrilicas (19).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (20).jpg" data-full="assets/acrilicas/acrilicas (20).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (21).jpg" data-full="assets/acrilicas/acrilicas (21).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (22).jpg" data-full="assets/acrilicas/acrilicas (23).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (24).jpg" data-full="assets/acrilicas/acrilicas (24).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (25).jpg" data-full="assets/acrilicas/acrilicas (25).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (26).jpg" data-full="assets/acrilicas/acrilicas (27).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (28).jpg" data-full="assets/acrilicas/acrilicas (29).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (30).jpg" data-full="assets/acrilicas/acrilicas (30).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (31).jpg" data-full="assets/acrilicas/acrilicas (31).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (32).jpg" data-full="assets/acrilicas/acrilicas (32).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (33).jpg" data-full="assets/acrilicas/acrilicas (34).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+    
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (36).jpg" data-full="assets/acrilicas/acrilicas (36).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (37).jpg" data-full="assets/acrilicas/acrilicas (37).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+      <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (38).jpg" data-full="assets/acrilicas/acrilicas (38).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (39).jpg" data-full="assets/acrilicas/acrilicas (39).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (41).jpg" data-full="assets/acrilicas/acrilicas (41).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (42).jpg" data-full="assets/acrilicas/acrilicas (42).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (43).jpg" data-full="assets/acrilicas/acrilicas (43).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (44).jpg" data-full="assets/acrilicas/acrilicas (44).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (45).jpg" data-full="assets/acrilicas/acrilicas (45).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (46).jpg" data-full="assets/acrilicas/acrilicas (46).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (47).jpg" data-full="assets/acrilicas/acrilicas (47).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (48).jpg" data-full="assets/acrilicas/acrilicas (48).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       <div class="thumb" data-category="acrilicas" data-name="Acrílicas Diseño">
+        <button aria-label="Abrir Acrílicas Diseño">
+          <img src="assets/acrilicas/acrilicas (49).jpg" data-full="assets/acrilicas/acrilicas (49).jpg" alt="Acrílicas Diseño" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Acrílicas Diseño</div><div class="cat">Uñas acrílicas</div></div>
+      </div>
+
+       
+      <!-- Pies -->
+
+      <div class="thumb" data-category="pies" data-name="Arreglo de pies">
+        <button aria-label="Abrir Pies">
+          <img src="assets/pies/pies.jpg" data-full="assets/pies/pies.jpg" alt="Arreglo de pies" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Arreglo de pies</div><div class="cat">Pies</div></div>
+      </div>
+      
+      <div class="thumb" data-category="pies" data-name="Arreglo de pies">
+        <button aria-label="Abrir Pies">
+          <img src="assets/pies/pies (3).jpg" data-full="assets/pies/pies (3).jpg" alt="Arreglo de pies" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Arreglo de pies</div><div class="cat">Pies</div></div>
+      </div>
+
+      <div class="thumb" data-category="pies" data-name="Arreglo de pies">
+        <button aria-label="Abrir Pies">
+          <img src="assets/pies/pies (4).jpg" data-full="assets/pies/pies (4).jpg" alt="Arreglo de pies" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Arreglo de pies</div><div class="cat">Pies</div></div>
+      </div>
+
+      <div class="thumb" data-category="pies" data-name="Arreglo de pies">
+        <button aria-label="Abrir Pies">
+          <img src="assets/pies/pies (5).jpg" data-full="assets/pies/pies (5).jpg" alt="Arreglo de pies" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Arreglo de pies</div><div class="cat">Pies</div></div>
+      </div>
+
+      <div class="thumb" data-category="pies" data-name="Arreglo de pies">
+        <button aria-label="Abrir Pies">
+          <img src="assets/pies/pies (6).jpg" data-full="assets/pies/pies (6).jpg" alt="Arreglo de pies" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Arreglo de pies</div><div class="cat">Pies</div></div>
+      </div>
+
+      <div class="thumb" data-category="pies" data-name="Arreglo de pies">
+        <button aria-label="Abrir Pies">
+          <img src="assets/pies/pies (9).jpg" data-full="assets/pies/pies (9).jpg" alt="Arreglo de pies" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Arreglo de pies</div><div class="cat">Pies</div></div>
+      </div>
+
+      
+    <!-- Manicura de hombre -->
+      <div class="thumb" data-category="manicura-hombre" data-name="Manicura Hombre">
+        <button aria-label="Abrir Manicura Hombre">
+          <img src="assets/manicura hombre/manicura hombre.jpg" data-full="assets/manicura hombre/manicura hombre.jpg" alt="Manicura Hombre con pegatinas" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Manicura Hombre</div><div class="cat">Manicura de hombre</div></div>
+      </div>
+
+      <div class="thumb" data-category="manicura-hombre" data-name="Manicura Hombre">
+        <button aria-label="Abrir Manicura Hombre">
+          <img src="assets/manicura hombre/manicura hombre1.jpg" data-full="assets/manicura hombre/manicura hombre1.jpg" alt="Manicura Hombre con pegatinas" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Manicura Hombre</div><div class="cat">Manicura de hombre</div></div>
+      </div>
+
+      <div class="thumb" data-category="manicura-hombre" data-name="Manicura Hombre Spa">
+        <button aria-label="Abrir Manicura Hombre Spa">
+          <img src="assets/manicura hombre/manicura hombre (2).jpg" data-full="assets/manicura hombre/manicura hombre (2).jpg" alt="Manicura Hombre con pegatinas" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Manicura Hombre</div><div class="cat">Manicura de hombre</div></div>
+      </div>
+
+      <!-- Cejas -->
+      <div class="thumb" data-category="cejas" data-name="Cejas Diseño Natural">
+        <button aria-label="Abrir Cejas Diseño Natural">
+          <img src="assets/Cejas y pestañas/Cejas.jpg" data-full="assets/Cejas y pestañas/Cejas.jpg" alt="Cejas Diseño Natural" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Cejas Diseño Natural</div><div class="cat">Cejas</div></div>
+      </div>
+
+      <div class="thumb" data-category="cejas" data-name="Cejas Diseño Natural">
+        <button aria-label="Abrir Cejas Natural">
+          <img src="assets/Cejas y pestañas/cejas3.jpg" data-full="assets/Cejas y pestañas/cejas3.jpg" alt="Cejas Diseño Natural" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Cejas naturales</div><div class="cat">Cejas</div></div>
+      </div>
+
+      <!-- Pestañas -->
+      <div class="thumb" data-category="pestanas" data-name="Pestañas de puntos">
+        <button aria-label="Abrir Pestañas de puntos">
+          <img src="assets/Cejas y pestañas/pestañas.jpg" data-full="assets/Cejas y pestañas/pestañas.jpg" alt="Pestañas de puntos" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Pestañas de puntos</div><div class="cat">Pestañas</div></div>
+      </div>
+
+      <div class="thumb" data-category="pestanas" data-name="Pestañas de puntos">
+        <button aria-label="Abrir Pestañas de puntos">
+          <img src="assets/Cejas y pestañas/pestañas (2).jpg" data-full="assets/Cejas y pestañas/pestañas (2).jpg" alt="Pestañas de puntos" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Pestañas de puntos</div><div class="cat">Pestañas</div></div>
+      </div>
+
+      <div class="thumb" data-category="pestanas" data-name="Pestañas de puntos">
+        <button aria-label="Abrir Pestañas de puntos">
+          <img src="assets/Cejas y pestañas/Cejas y pestañas.jpg" data-full="assets/Cejas y pestañas/Cejas y pestañas.jpg" alt="Pestañas de puntos" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Pestañas de puntos</div><div class="cat">Pestañas</div></div>
+      </div>
+
+      <div class="thumb" data-category="pestanas" data-name="Pestañas de puntos">
+        <button aria-label="Abrir Pestañas de puntos">
+          <img src="assets/Cejas y pestañas/cejas y pestañas (2).jpg" data-full="assets/Cejas y pestañas/cejas y pestañas (2).jpg" alt="Pestañas de puntos" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Pestañas de puntos</div><div class="cat">Pestañas</div></div>
+      </div>
+
+      <div class="thumb" data-category="pestanas" data-name="Pestañas de puntos">
+        <button aria-label="Abrir Pestañas de puntos">
+          <img src="assets/Cejas y pestañas/cejas y pestañas (3).jpg" data-full="assets/Cejas y pestañas/cejas y pestañas (3).jpg" alt="Pestañas de puntos" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Pestañas de puntos</div><div class="cat">Pestañas</div></div>
+      </div>
+
+      <div class="thumb" data-category="pestanas" data-name="Pestañas de puntoss">
+        <button aria-label="Abrir Pestañas de puntos">
+          <img src="assets/Cejas y pestañas/cejas y pestañas (4).jpg" data-full="assets/Cejas y pestañas/cejas y pestañas (4).jpg" alt="Pestañas de puntos" loading="lazy">
+        </button>
+        <div class="meta"><div class="label">Pestañas de puntos</div><div class="cat">Pestañas</div></div>
+      </div>
+
+      <!-- Añade más miniaturas siguiendo el mismo patrón -->
+    </section>
+
+    <a class="ver-todo" href="galeria.html">Ver todas las fotos por categoría</a>
+  
+  <footer id="site-footer" class="footer-minimal" role="contentinfo">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-brand" aria-label="Silvermist home">
+      <svg width="36" height="36" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-opacity="0.06" stroke-width="2" fill="none"/>
+        <path d="M20 36c6-10 24-10 28 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-name">Silvermist</span>
+    </a>
+
+    <div class="footer-actions">
+      <nav class="footer-social" aria-label="Redes sociales">
+        <a href="https://www.instagram.com/silvermistbs" target="_blank" rel="noopener" aria-label="Instagram Silvermist">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.4" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.4" fill="none"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/15ZYQGUXJb/?mibextid=LQQJ4d" target="_blank" rel="noopener" aria-label="Facebook Silvermist">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07c0 4.99 3.66 9.13 8.44 9.93v-7.03H8.08v-2.9h2.36V9.41c0-2.33 1.39-3.62 3.52-3.62 1.02 0 2.09.18 2.09.18v2.3h-1.18c-1.16 0-1.52.72-1.52 1.46v1.75h2.59l-.41 2.9h-2.18v7.03C18.34 21.2 22 17.06 22 12.07z" fill="currentColor"/></svg>
+        </a>
+        <a href="https://wa.me/+5356169875?text=Hola%20Silvermist,%20quiero%20reservar%20una%20cita" target="_blank" rel="noopener" aria-label="WhatsApp Silvermist">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.52 3.48A11.94 11.94 0 0 0 12 1C6.48 1 2 5.48 2 11c0 1.94.5 3.76 1.38 5.36L2 23l6.9-1.36A10.94 10.94 0 0 0 12 22c5.52 0 10-4.48 10-10 0-1.9-.5-3.68-1.48-5.12z" stroke="currentColor" stroke-width="1.1" fill="none"/><path d="M17.5 14.5c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.18.2-.36.22-.66.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.36.45-.54.15-.18.2-.3.3-.5.1-.2 0-.37-.05-.52-.05-.15-.67-1.6-.92-2.2-.24-.57-.48-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.22 3.08.15.2 2.1 3.2 5.1 4.49 3 .9 3.3.76 3.9.71.6-.05 1.95-.8 2.23-1.57.28-.77.28-1.43.2-1.57-.08-.14-.27-.22-.57-.37z" fill="currentColor"/></svg>
+        </a>
+      </nav>
+
+      <p class="footer-copy"> <span id="footerYear"></span> Silvermist</p>
+    </div>
+  </div>
+</footer>
+
+  
+  </main>
+
+  <!-- Lightbox modal -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-inner" role="document">
+      <button class="lb-close" id="lbClose" aria-label="Cerrar imagen">✕</button>
+      <button class="lb-prev" id="lbPrev" aria-label="Imagen anterior">‹</button>
+
+      <figure class="lightbox-figure">
+        <img id="lbImg" src="" alt="">
+        <figcaption id="lbCaption"></figcaption>
+      </figure>
+
+      <button class="lb-next" id="lbNext" aria-label="Siguiente imagen">›</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    (function(){
+      // Elementos
+      const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+      const searchInput = document.getElementById('buscar-galeria');
+      const grid = document.getElementById('galleryGrid');
+      const thumbs = Array.from(document.querySelectorAll('.thumb'));
+
+      // Lightbox elementos
+      const lightbox = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbCaption = document.getElementById('lbCaption');
+      const lbClose = document.getElementById('lbClose');
+      const lbPrev = document.getElementById('lbPrev');
+      const lbNext = document.getElementById('lbNext');
+
+      // Filtrado por categoría
+      function applyFilter(filter){
+        thumbs.forEach(t => {
+          const cat = t.getAttribute('data-category') || '';
+          t.style.display = (filter === 'all' || filter === cat) ? '' : 'none';
+        });
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected','true');
+          const filter = btn.getAttribute('data-filter');
+          applyFilter(filter);
+          // limpiar búsqueda
+          if(searchInput) searchInput.value = '';
+        });
+      });
+
+      // Búsqueda por texto (nombre o etiqueta)
+      searchInput?.addEventListener('input', () => {
+        const q = searchInput.value.trim().toLowerCase();
+        const activeFilter = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+        thumbs.forEach(t => {
+          const name = (t.getAttribute('data-name') || '').toLowerCase();
+          const cat = t.getAttribute('data-category') || '';
+          const matchesSearch = name.includes(q);
+          const matchesFilter = (activeFilter === 'all') || (cat === activeFilter);
+          t.style.display = (matchesSearch && matchesFilter) ? '' : 'none';
+        });
+      });
+
+      // Lightbox behavior
+      let currentIndex = 0;
+      const visibleThumbs = () => Array.from(document.querySelectorAll('.thumb')).filter(t => t.style.display !== 'none');
+
+      function openLightbox(index){
+        const list = visibleThumbs();
+        if(list.length === 0) return;
+        const thumb = list[index];
+        const img = thumb.querySelector('img');
+        const full = img.dataset.full || img.src;
+        lbImg.src = full;
+        lbImg.alt = img.alt || '';
+        lbCaption.textContent = img.alt || '';
+        lightbox.setAttribute('aria-hidden','false');
+        lightbox.style.display = 'flex';
+        currentIndex = index;
+        lbClose.focus();
+      }
+
+      function closeLightbox(){
+        lightbox.setAttribute('aria-hidden','true');
+        lightbox.style.display = 'none';
+        lbImg.src = '';
+      }
+
+      function showPrev(){
+        const list = visibleThumbs();
+        if(list.length === 0) return;
+        currentIndex = (currentIndex - 1 + list.length) % list.length;
+        openLightbox(currentIndex);
+      }
+      function showNext(){
+        const list = visibleThumbs();
+        if(list.length === 0) return;
+        currentIndex = (currentIndex + 1) % list.length;
+        openLightbox(currentIndex);
+      }
+
+      // Abrir lightbox al click o Enter
+      thumbs.forEach((t, i) => {
+        const btn = t.querySelector('button');
+        btn.addEventListener('click', () => {
+          // compute index among visible thumbs
+          const list = visibleThumbs();
+          const idx = list.indexOf(t);
+          openLightbox(idx >= 0 ? idx : 0);
+        });
+        btn.addEventListener('keydown', (e) => {
+          if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+        });
+      });
+
+      lbClose?.addEventListener('click', closeLightbox);
+      lbPrev?.addEventListener('click', showPrev);
+      lbNext?.addEventListener('click', showNext);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if(lightbox.getAttribute('aria-hidden') === 'false'){
+          if(e.key === 'Escape') closeLightbox();
+          if(e.key === 'ArrowLeft') showPrev();
+          if(e.key === 'ArrowRight') showNext();
+        }
+      });
+
+      // Click fuera para cerrar
+      lightbox?.addEventListener('click', (e) => {
+        if(e.target === lightbox) closeLightbox();
+      });
+
+      // Accessibility: ensure images are focusable
+      document.querySelectorAll('.thumb button').forEach(b => b.setAttribute('tabindex','0'));
+
+      // Lazy loading fallback for older browsers
+      if('loading' in HTMLImageElement.prototype === false){
+        const lazyImgs = document.querySelectorAll('img[loading="lazy"]');
+        lazyImgs.forEach(img => {
+          const src = img.getAttribute('data-src') || img.src;
+          img.src = src;
+        });
+      }
+
+      // Initial state
+      applyFilter('all');
+    })();
+  </script>
+</body>
+</html>
